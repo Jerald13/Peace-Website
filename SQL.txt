@@ -1,0 +1,132 @@
+CREATE TABLE staff (
+  staff_id int NOT NULL generated always as identity(Start with 1, Increment by 1),
+  name varchar(100),
+  password varchar(100),
+  email varchar(100),
+  phone_num varchar(100),
+  image varchar(100),
+  PRIMARY KEY (staff_id)
+);
+
+CREATE TABLE Products (
+  product_id int  NOT NULL generated always as identity(Start with 1, Increment by 1),
+  product_title varchar(100),
+  product_date_start varchar(100),
+  product_image varchar(100),
+  product_stock int,
+  product_amount numeric(6,2),
+  product_size varchar(100),
+  product_categories varchar(100),
+  PRIMARY KEY (product_id)
+);
+
+CREATE TABLE Users (
+  user_id int NOT NULL generated always as identity(Start with 1, Increment by 1),
+  name varchar(100),
+  password varchar(100),
+  email varchar(100),
+  phone_num varchar(100),
+  image varchar(100),
+  PRIMARY KEY (user_id)
+);
+
+CREATE TABLE Payment (
+  payment_id int NOT NULL generated always as identity(Start with 1, Increment by 1),
+  payment_total numeric(6,2),
+  payment_method varchar(100),
+  payment_address varchar(100),
+  shipping varchar(100),
+  payment_date varchar(100),
+  payment_status varchar(100),
+  PRIMARY KEY (payment_id)
+);
+
+CREATE TABLE Cart (
+  cart_id int,
+  product_id int,
+  payment_id int,
+  user_id int,
+  quantity int,
+  price numeric(6,2),
+  orderSize varchar(10),
+  status varchar(50),
+  PRIMARY KEY (cart_id, product_id, user_id, payment_id),
+  FOREIGN KEY (product_id) REFERENCES Products(product_id),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+  FOREIGN KEY (payment_id) REFERENCES Payment(payment_id)
+);
+
+CREATE TABLE Notification (
+  notification_id int NOT NULL generated always as identity(Start with 1, Increment by 1),
+  staff_id int,
+  message varchar(100),
+  status varchar(100),
+  sender varchar(100),
+  PRIMARY KEY (notification_id),
+  FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+);
+
+CREATE TABLE Comment (
+  comment_id int NOT NULL generated always as identity(Start with 1, Increment by 1),
+  user_id int,
+  ratings int,
+  comment_about varchar(100),
+  reviews varchar(100),
+  PRIMARY KEY (comment_id),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE Notification_detail (
+  notification_id int,
+  user_id int,
+  notification_date varchar(100),
+  notification_time varchar(100),
+  PRIMARY KEY (notification_id, user_id),
+  FOREIGN KEY (notification_id) REFERENCES Notification(notification_id),
+  FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+INSERT INTO Staff (name,password,email,phone_num,image)VALUES ('Jerald', 'nbuser', 'Jerald@gmail.com', '018-2055127', 'lee.jpg');
+INSERT INTO Staff (name,password,email,phone_num,image)VALUES ('jingcheng', 'nbuser', 'jc@gmail.com', '017-5066725', 'lim.jpg');
+INSERT INTO Staff (name,password,email,phone_num,image)VALUES ('hanesh', 'nbuser', 'hns@gmail.com', '018-9055153', 'hns.jpg');
+
+INSERT INTO Users (name,password,email,phone_num,image) VALUES ('erhao', 'erhao', 'erhao@gmail.com', '011-12925987', 'hao.jpg');
+INSERT INTO Users (name,password,email,phone_num,image) VALUES ('Jerald', 'jerald', 'Jerald@gmail.com', '018-2055127', 'lee.jpg');
+INSERT INTO Users (name,password,email,phone_num,image) VALUES ('thanesh', 'thanesh', 'thanesh@gmail.com', '018-8023577', 'thanesh.jpg');
+
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('Tanjirou', '04/06/2022', 'kimet2.jpg', 100, 34.50, 'M,L,XL','Popular');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('Kakasi', '03/05/2022', 'popular2.jpg', 88, 27.50, 'M,L,XL,XXL','New Arrival');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('Zero Two', '04/06/2022', 'popular4.jpg', 66, 67, 'M,L,XL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('Nezuko', '04/06/2022', 'new.jpg', 100, 34.50, 'M,L,XL,XXL','Popular');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('Shinobu', '03/05/2022', 'new2.jpg', 88, 27.50, 'M,L,XL','New Arrival');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('Mitsuri', '04/06/2022', 'new3.jpg', 66, 67, 'M,L,XL,XXL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('A', '04/06/2022', 'popular.jpg', 100, 34.50, 'M,L,XL','Popular');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('B', '03/05/2022', 'popular3.jpg', 88, 27.50, 'M,L,XL','New Arrival');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('C', '04/06/2022', 'popular5.jpg', 66, 67, 'M,L,XL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('D', '04/06/2022', 'popular6.jpg', 66, 67, 'M,L,XL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('E', '04/06/2022', 'popular7.jpg', 66, 67, 'M,L,XL,XXL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('F', '04/06/2022', 't-shirt2.jpg', 66, 67, 'M,L,XL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('G', '04/06/2022', 't-shirt3.jpg', 66, 67, 'M,L,XL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('H', '04/06/2022', 't-shirt4.jpg', 66, 67, 'M,L,XL','Limited Offer');
+INSERT INTO Products (product_title,product_date_start,product_image,product_stock,product_amount,product_size,product_categories) VALUES ('I', '04/06/2022', 'kimet3.jpg', 66, 67, 'M,L,XL','Limited Offer');
+
+INSERT INTO Payment (payment_total,payment_method,payment_address,shipping,payment_status,payment_date) VALUES (100.50, 'Credit card', 'Leaf-Village 53300 Kuala Lumpur', 'GLS','delivered','11/04/2022 02:42:44');
+INSERT INTO Payment (payment_total,payment_method,payment_address,shipping,payment_status,payment_date) VALUES (235, 'COD', 'Bukit bintang', 'DHL','delivered','26/02/2022 02:42:44');
+INSERT INTO Payment (payment_total,payment_method,payment_address,shipping,payment_status,payment_date) VALUES (55, 'Credit card', 'Singapore', 'GLS','delivered','16/10/2022 02:42:44');
+
+INSERT INTO Cart (cart_id, product_id, payment_id, user_id, quantity ,price, orderSize, status) VALUES (1, 1, 1, 1, 2, 34.50, 'L', 'ordered');
+INSERT INTO Cart (cart_id, product_id, payment_id, user_id, quantity ,price, orderSize, status) VALUES (2, 2, 1, 1, 2, 34.50, 'L', 'ordered');
+INSERT INTO Cart (cart_id, product_id, payment_id, user_id, quantity ,price, orderSize, status) VALUES (3, 3, 2, 1, 2, 34.50, 'L', 'ordered');
+
+INSERT INTO Notification (staff_id,message,status,sender) VALUES (1, 'Message here', 'Succeed', 'Staff');
+INSERT INTO Notification (staff_id,message,status,sender) VALUES (1, 'Message here', 'Succeed', 'Staff');
+INSERT INTO Notification (staff_id,message,status,sender) VALUES (2, 'Message here2', 'Succeed', 'Staff');
+
+INSERT INTO Comment (user_id, ratings,comment_about,reviews) VALUES (1, 4, 'Tanjirou', 'Good Stuff');
+INSERT INTO Comment (user_id, ratings,comment_about,reviews) VALUES (1, 4, 'abc', 'Good Stuff111');
+INSERT INTO Comment (user_id, ratings,comment_about,reviews) VALUES (2, 2, 'hahaha', 'Good Stuff2');
+
+INSERT INTO Notification_detail (notification_id,user_id,notification_date,notification_time) VALUES (1,1, '4/6/2022', '10:35');
+INSERT INTO Notification_detail (notification_id,user_id,notification_date,notification_time) VALUES (2,1, '5/8/2022', '11:35');
+INSERT INTO Notification_detail (notification_id,user_id,notification_date,notification_time) VALUES (3,2, '16/9/2022', '12:35');
+
